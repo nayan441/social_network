@@ -92,9 +92,7 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
-# Docker
-docker-compose.yml
-Dockerfile
+
 
 # Environment variables
 .env

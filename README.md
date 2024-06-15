@@ -6,7 +6,7 @@ First clone the repository from Github and switch to the new directory:
 
     $ git clone https://github.com/nayan441/social_network.git
     $ cd social_network
-    
+## Without Docker    
 Activate the virtualenv for your project.
     
     $ virtualenv venv
@@ -27,3 +27,17 @@ You can now run the development server:
 
     $ python manage.py runserver
 
+## With Docker    
+
+
+Build a docker image
+
+    $ docker build -t my_social_network .
+
+Run a docker image
+
+    $ docker run -p 8000:8000 my_social_network
+
+## Postman API collection
+
+Create an environment for Postman collection and then create some users first.

@@ -1,17 +1,16 @@
-# api/views.py
+from .serializers import UserSignupSerializer, UserLoginSerializer, UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
-from .serializers import UserSignupSerializer, UserLoginSerializer, UserSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Q
 
-from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
 class UserSignupView(generics.CreateAPIView):
@@ -53,7 +52,6 @@ class UserSearchView(APIView):
 
     
 
-    # api/views.py
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from .models import FriendRequest
