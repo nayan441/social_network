@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "04aa9824-0d77-4470-b946-4635ad5195f2",
+		"name": "ynayan93@gmail.com-AccuKnox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24964324"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\":\"arpit@gmail.com\",\r\n\"password\":\"Qwerty@12345\",\r\n\"name\":\"arpit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/signup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"signup",
+						""
+					]
+				},
+				"description": "**DIRECTION**: User should be able to signup with their email only(no otp verification required, valid  \nemail format is sufficient)\n\n**SOLUTION**: The user should be able to register here by providing their email address, name, and password. Since the name field is necessary when requesting a user name response from the search API, we have added it as an extra field."
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"// Save the access token and refresh token into environment variables\r",
+							"pm.environment.set(\"accessToken\", responseJson.access);\r",
+							"pm.environment.set(\"refreshToken\", responseJson.refresh);\r",
+							"\r",
+							"// Log the tokens to console for debugging (optional)\r",
+							"console.log(\"Access Token:\", responseJson.access);\r",
+							"console.log(\"Refresh Token:\", responseJson.refresh);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\":\"aAditya@gmail.com\",\r\n\"password\":\"Qwerty@12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login",
+						""
+					]
+				},
+				"description": "**DIRECTION**: Users should be able to login with their email and password(email should be case  \ninsensitive)\n\n**SOLUTION**: The user's password and email can be used to log in. We will obtain access token (with a 5-minute expiration time) and a refresh token (with a 1-day expiration time) from the response, which we will utilise for authentication.\n\n**RESPONSE**: {  \n\"id\": 10,  \n\"email\": \"[robin@gmail.com](mailto:robin@gmail.com)\",  \n\"name\": null,  \n\"refresh\": \"eyJhbG............DEYuZk\",  \n\"access\": \"eyJh..................fT2e54Qo\"  \n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Generate access token through refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"// Save the access token and refresh token into environment variables\r",
+							"pm.environment.set(\"accessToken\", responseJson.access);\r",
+							"\r",
+							"// Log the tokens to console for debugging (optional)\r",
+							"console.log(\"Access Token:\", responseJson.access);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"refresh\":\"{{refreshToken}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/refresh/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						"refresh",
+						""
+					]
+				},
+				"description": "With the help of refresh token we can generate access token\n\n**RESPONSE**: {  \n\"access\": \"eyJh..........6TY\"  \n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Send friend request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to_user\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/friend-requests/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"friend-requests",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Friend Request Received",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/friend-requests-received/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"friend-requests-received",
+						""
+					]
+				},
+				"description": "**DIRECTION**: List pending friend requests(received friend request)\n\n**SOLUTION**: Response will show all pending request.\n\n**RESPONSE** : \\[  \n{  \n\"id\": 25,  \n\"from_user\": 8,  \n\"to_user\": 10,  \n\"status\": \"pending\"  \n}  \n\\]"
+			},
+			"response": []
+		},
+		{
+			"name": "Friend request Action(accept/reject)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"action\":\"accept\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/friend-requests/28/action/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"friend-requests",
+						"28",
+						"action",
+						""
+					]
+				},
+				"description": "**DIRECTION**: API to send/accept/reject friend request  \nSOLUTION : This api will accept or reject pending friend request.\n\n**REQUEST PAYLOAD**:  \n{  \n\"action\":\"accept\"  \n}  \nOR  \n{  \n\"action\":\"reject\"  \n}\n\n**RESPONSE** : {  \n\"id\": 28,  \n\"from_user\": 10,  \n\"to_user\": 9,  \n\"status\": \"accepted\"  \n}"
+			},
+			"response": []
+		},
+		{
+			"name": "My all Friends (List)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/friend-requests/?status=accepted",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"friend-requests",
+						""
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "accepted"
+						}
+					]
+				},
+				"description": "**DIRECTION** : API to list friends(list of users who have accepted friend request)\n\n**SOLUTION** : This api will provide all the related information about friends (who have accepted friend request) along with all those how approved sent friend request  \n**AUTHENTICATION**: For authentication purpose we have used access token which we get when we login in headers.\n\n'Authorization: Bearer eyJhb..........rVOw'\n\nRESPONSE:  \n\\[  \n{  \n\"id\": 23,  \n\"from_user\": 8,  \n\"to_user\": 10,  \n\"status\": \"accepted\"  \n},  \n{  \n\"id\": 24,  \n\"from_user\": 8,  \n\"to_user\": 4,  \n\"status\": \"accepted\"  \n},  \n{  \n\"id\": 22,  \n\"from_user\": 10,  \n\"to_user\": 8,  \n\"status\": \"accepted\"  \n}  \n\\]"
+			},
+			"response": []
+		},
+		{
+			"name": "Search Friend By Email or Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/search/?query=pankaj",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "pankaj"
+						}
+					]
+				},
+				"description": "**DESCRIPTION** : API to search other users by email and name(paginate up to 10 records per page).  \na) If search keyword matches exact email then return user associated with the  \nemail.  \nb) If the search keyword contains any part of the name then return a list of all  \nusers.  \nc) There will be only one search keyword that will search either by name or email.\n\n**SOLUTION**: Here we have search keyword \"query\"  \n[http://localhost:8000/api/search/?query=pankaj@gmail.com](http://localhost:8000/api/search/?query=pankaj@gmail.com)"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
