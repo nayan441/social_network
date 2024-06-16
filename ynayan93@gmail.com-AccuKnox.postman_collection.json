@@ -33,7 +33,7 @@
 						""
 					]
 				},
-				"description": "**DIRECTION**: User should be able to signup with their email only(no otp verification required, valid  \nemail format is sufficient)\n\n**SOLUTION**: The user should be able to register here by providing their email address, name, and password. Since the name field is necessary when requesting a user name response from the search API, we have added it as an extra field."
+				"description": "**DIRECTION**: User should be able to signup with their email only(no otp verification required, valid  \nemail format is sufficient)\n\n**SOLUTION**: The user should be able to register here by providing their email address, name, and password. Since the name field is necessary(not mandatory) when requesting a user name response from the search API, we have added it as an extra field."
 			},
 			"response": []
 		},
@@ -144,7 +144,7 @@
 			"response": []
 		},
 		{
-			"name": "Send friend request",
+			"name": "Send friend request to a user",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -184,7 +184,7 @@
 			"response": []
 		},
 		{
-			"name": "Friend Request Received",
+			"name": "All friend request received to me",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -228,7 +228,7 @@
 			"response": []
 		},
 		{
-			"name": "Friend request Action(accept/reject)",
+			"name": "Perform  action on received friend request(accept/reject)",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -271,7 +271,7 @@
 			"response": []
 		},
 		{
-			"name": "My all Friends (List)",
+			"name": "All friends (List)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -321,7 +321,7 @@
 			"response": []
 		},
 		{
-			"name": "Search Friend By Email or Name",
+			"name": "Search other user by email or name",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},

@@ -45,6 +45,9 @@ Run a docker image
 ## Postman API collection
 
 Create an environment for Postman collection as it is required to create and update variables for smooth testing.
+
 There are some tests in Postman for automated token updation.
+
 Entire documentation can be access by clicking on "View complete collection documentation-->" tab  in postman
+
 Create some users first with email, password and name.
