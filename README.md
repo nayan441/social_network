@@ -46,7 +46,7 @@ Run a docker image
 
 Create an environment for Postman collection as it is required to create and update variables for smooth testing.
 
-There are some tests in Postman for automated token updation.
+There are some tests in Postman for automated token updation get reference from google.
 
 Entire documentation can be access by clicking on "View complete collection documentation-->" tab  in postman
 
